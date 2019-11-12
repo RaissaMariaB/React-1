@@ -1,56 +1,60 @@
 import React from 'react';
-import './App.css';   
+import './App.css';
 
-const contador = 7;
-
-const verificaContador = () => {
-  if (contador === 0) {
-    return <p>Contador não iniciado</p>
-  } else {
-    return <p>Contador iniciado</p>
+class Contador extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      contador = 0
+    }
   }
+
+  adicionaUm = () => {
+    this.setState((prevState) => {
+      return {
+        contador: prevState.contador + 1
+      }
+    })
+  }
+
+  menosUm = () => {
+    this.setState((prevState) => {
+      return {
+        contador: prevState.contador - 1
+      }
+    })
+  }
+
+  reset = () => {
+    this.setState( () => {
+      return {
+        contador : 0 
+      }
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <button className="btnMaisUm" onclick={this.adicionaUm}> +1 </button >
+        <button className="btnMenosUm" onClick={this.menosUm}> -1 </button>
+        <button className="btnResetar" onClick={this.reset}> resetar </button>
+      </div>
+    )
+
+  }
+
 }
 
-const Nav = props => {
+function App() {
   return (
-    <div className="navContainer">
-      <p>{props.nome}</p>
-      <p>{props.titulo}</p>
+    <div className = "App">
+      <h2>
+        Contador
+      </h2>
+      <Contador />   
     </div>
   )
 }
 
-const elemento = <p> Sou um elemento </p>;
-
-function App() {
-  return (
-    <div className="App">
-      <Nav
-        nome="mell"
-        titulo="titulo"
-        numero="13"
-      />
-
-      <Nav
-        nome="raissa"
-        titulo="titulo"
-      />
-
-      <Nav
-        nome="larissa"
-        titulo="titulo bacanudo"
-      />
-
-
-      <h2>Contador</h2>
-      <p>{contador}</p>
-
-      {verificaContador()}
-      
-      <button className="btnMaisUm">+1</button>
-      <button className="btnMenosUm">-1</button>
-      <button className="btnResetar">resetar</button>
-    </div>
-  );
-}
-export default App;
+export default App
