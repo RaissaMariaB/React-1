@@ -5,8 +5,9 @@ class Contador extends React.Component {
   constructor() {
     super()
     this.state = {
-      contador : 0 ,
-      mostrar : true
+      contador: 0,
+      mostrar: true,
+      block: false
     }
   }
 
@@ -28,9 +29,10 @@ class Contador extends React.Component {
   }
 
   reset = () => {
-    this.setState( () => {
+    this.setState(() => {
       return {
-        contador : 0 
+        contador: 0,
+        block:false
       }
     })
   }
@@ -47,20 +49,37 @@ class Contador extends React.Component {
     })
   }
 
+  block = () => {
+    this.setState(() => {
+      return {
+        block: true
+      }
+
+    })
+
+
+  }
+
   render() {
     return (
       <div>
         <p>{this.state.contador}</p>
         <button onClick={this.fecharContador}>
           {this.state.mostrar === true ? "Bota os botão" : "Tira os botão"}
-          </button><br/>
+        </button><br />
         {/* Aqui eu faço a condição sempre usando >THIS< */}
-        {this.state.mostrar === true? '' :(
+        {this.state.mostrar === true ? '' : (
           <div>
-            <button className="btnMaisUm" onClick={this.adicionarUm}>+1</button>
-            <button className="btnMenosUm" onClick={this.menosUm}>-1</button>
-            <button className="btnResetar" onClick={this.resetar}>resetar</button>
+            <div>
+              <button disabled={this.state.block} className="btnMaisUm" onClick={this.adicionaUm}>+1</button>
+              <button disabled={this.state.block} className="btnMenosUm" onClick={this.menosUm}>-1</button>
+              <button className="btnResetar" onClick={this.reset}>resetar</button>
+            </div>
+            <div>
+              <button className="block" onClick={this.block}>Block</button>
+             </div>
           </div>
+
         )}
       </div>
     );
@@ -69,13 +88,15 @@ class Contador extends React.Component {
 
 function App() {
   return (
-    <div className = "App">
+    <div className="App">
       <h2>
         Contador
       </h2>
-      <Contador />   
+      <Contador />
     </div>
   )
 }
 
 export default App
+
+
